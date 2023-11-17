@@ -63,6 +63,9 @@ const Search: React.FC<SearchProps> = ({ clients, setDataFilteredClient }) => {
       return filters.every((filter: any) => {
         const { column, comparisonOperator, value, endDate } = filter;
 
+        const itemDate = dayjs(item[column]).format("YYYY-MM-DD");
+        const filterDate = dayjs(value).format("YYYY-MM-DD");
+
         if (comparisonOperator === "include") {
           if (
             item[column].toLowerCase() === "male" ||
@@ -100,51 +103,32 @@ const Search: React.FC<SearchProps> = ({ clients, setDataFilteredClient }) => {
         }
 
         if (comparisonOperator === "dates") {
-          const itemDate = dayjs(item[column]).format("YYYY-MM-DD");
-          const filterDate = dayjs(value).format("YYYY-MM-DD");
-
           return itemDate === filterDate;
         }
 
         if (comparisonOperator === "notDate") {
-          const itemDate = dayjs(item[column]).format("YYYY-MM-DD");
-          const filterDate = dayjs(value).format("YYYY-MM-DD");
-
           return itemDate !== filterDate;
         }
 
         if (comparisonOperator === "less") {
-          const itemDate = dayjs(item[column]).format("YYYY-MM-DD");
-          const filterDate = dayjs(value).format("YYYY-MM-DD");
-
           return itemDate < filterDate;
         }
 
         if (comparisonOperator === "more") {
-          const itemDate = dayjs(item[column]).format("YYYY-MM-DD");
-          const filterDate = dayjs(value).format("YYYY-MM-DD");
-
           return itemDate > filterDate;
         }
 
         if (comparisonOperator === "lessEqual") {
-          const itemDate = dayjs(item[column]).format("YYYY-MM-DD");
-          const filterDate = dayjs(value).format("YYYY-MM-DD");
-
           return itemDate <= filterDate;
         }
 
         if (comparisonOperator === "moreEqual") {
-          const itemDate = dayjs(item[column]).format("YYYY-MM-DD");
-          const filterDate = dayjs(value).format("YYYY-MM-DD");
-
           return itemDate >= filterDate;
         }
 
         if (comparisonOperator === "range") {
           const start = dayjs(value).format("YYYY-MM-DD");
           const end = dayjs(endDate).format("YYYY-MM-DD");
-          const itemDate = dayjs(item[column]).format("YYYY-MM-DD");
 
           return itemDate >= start && itemDate <= end;
         }
